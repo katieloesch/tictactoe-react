@@ -1,0 +1,42 @@
+.grid-container {
+    
+    .grid {
+
+        width: 100%;
+        height: 100%;
+        display: grid;
+        justify-content: center;
+        align-content: center;
+        justify-items: center;
+        grid-template-columns: repeat(3, auto);
+
+        .cell {
+            width: var(--cell-size);
+            height: var(--cell-size);
+            border: 3px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+        }
+
+
+        /* removing the outside border of the grid */
+        .cell:nth-child(1), .cell:nth-child(2), .cell:nth-child(3) {
+            border-top: none;
+        }
+        .cell:nth-child(3n+3) {
+            border-right: none;   
+        }
+        .cell:nth-child(9), .cell:nth-child(8), .cell:nth-child(7) {
+            border-bottom: none;
+        }
+        .cell:nth-child(3n+1) {
+            border-left: none;   
+        }
+
+    }
+
+}
+    
