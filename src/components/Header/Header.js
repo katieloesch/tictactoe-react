@@ -4,7 +4,7 @@ import './Header.scss'
 const Header = () => {
   return (
     <div className='header-container flex'>
-        <h1 className='title-main flex'>TicTacToe</h1>      
+        <h1 className='title-main flex'>Tic Tac Toe</h1>      
     </div>
   )
 }

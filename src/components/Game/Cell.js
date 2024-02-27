@@ -1,10 +1,9 @@
 import React from 'react'
 import './GameBoard.scss'
 
-const Cell = () => {
+const Cell = ({handleCellClick, cellId, content}) => {
   return (
-    <div className='cell'>
-    
+    <div className={`cell ${content}`} onClick={handleCellClick} id={cellId}>
       
     </div>
   )

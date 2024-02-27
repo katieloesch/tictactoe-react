@@ -1,3 +1,22 @@
+
+/* https://en.bestfonts.pro/font/comfortaa#google_vignette */
+
+
+@font-face {
+  font-family: 'comfortaa';
+  src: url('./assets/fonts/comfortaa-regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+@font-face {
+  font-family: 'comfortaa';
+  src: url('./assets/fonts/comfortaa-bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+
+}
+
 :root {
   --cell-size: 150px;
   
@@ -7,7 +26,7 @@
   --x-color: white;
   --o-color: white;
 
-  /* --font-main: 'comfortaa', 'futura', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
+  --font-main: 'comfortaa', 'futura', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 *, *::after, *::before {
   box-sizing: border-box;
@@ -32,4 +51,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.btn {
+  
 }
