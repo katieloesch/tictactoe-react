@@ -5,6 +5,7 @@ import { GameState } from './GameState'
 import clickSound from './../../assets/soundEffects/click.wav';
 import gameOverSound from './../../assets/soundEffects/game_over.wav';
 import './Tictactoe.scss';
+import TogglePlayers from './TogglePlayers/TogglePlayers';
 
 const soundClick = new Audio(clickSound);
 soundClick.volume = 0.5;
@@ -15,7 +16,7 @@ soundGameOver.volume = 0.2;
 const PLAYER_X = 'x';
 const PLAYER_O = 'o';
 
-const checkWinner = (board, setStrikePosition, setGameState) => {
+const checkWinDraw = (board, setStrikePosition, setGameState) => {
 
   const winningCombinations = [
 
@@ -61,7 +62,6 @@ const checkWinner = (board, setStrikePosition, setGameState) => {
   if (boardFull) {
     setGameState(GameState.draw);
   }
-
 }
 
 const Tictactoe = () => {
@@ -70,6 +70,24 @@ const Tictactoe = () => {
   const [currentSymbol, setCurrentSymbol] = useState(PLAYER_X);
   const [strikePosition, setStrikePosition] = useState('');
   const [gameState, setGameState] = useState(GameState.inProgress)
+  const [session, setSession] = useState({
+    x: {
+      symbol: 'x',
+      name: 'Player 1',
+      wins: 0,
+      color: 'white'
+    },
+    o: {
+      symbol: 'o',
+      name: 'Player 2',
+      wins: 0,
+      color: 'white'
+    },
+    draws: 0,
+    players: 1,
+    gamesPlayed: 0,
+    mute: false
+  })
 
   const switchTurns = () => {
     if (currentSymbol === PLAYER_X) {
@@ -109,7 +127,7 @@ const Tictactoe = () => {
 
   useEffect(() => {
 
-    checkWinner(board, setStrikePosition, setGameState);
+    checkWinDraw(board, setStrikePosition, setGameState);
 
   }, [board])
 
@@ -136,7 +154,10 @@ const Tictactoe = () => {
         gameState={gameState}
       />
 
+      <TogglePlayers />
+
       <MessageGameOver gameState={gameState} resetGame={resetGame} />
+      
     
     </div>
   )

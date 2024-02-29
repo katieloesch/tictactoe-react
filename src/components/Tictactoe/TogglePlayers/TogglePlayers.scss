@@ -1,0 +1,108 @@
+.toggle-1-2-players {
+    margin-top: 40px;
+
+    span {
+        position: relative;
+        width: 200px;
+        height: 50px;
+        border-radius: 25px;
+
+        input {
+            appearance: none;
+            width: 220px;
+            height: 35px;
+            border-radius: 25px;
+            background-color: black;
+            color: white;
+            outline: none;
+            font-size: 1.1rem;
+            border: 2px solid white;
+        }
+
+        input::before,
+        input::after {
+            z-index: 2;
+            position: absolute;
+            top: 35%;
+            transform: translateY(-50%);
+            font-weight: bold;
+        }
+
+        input::before {
+            content: '2 players';
+            left: 15px;
+        }
+
+        input::after {
+            content: '1 player';
+            left: 130px;
+            margin-right: -5px;
+        }
+
+        input:checked {
+            background-color: black;
+        }
+
+        label {
+            z-index: 1;
+            position: absolute;
+            top: 10px;
+            bottom: 4px;
+            border-radius: 20px;
+
+        }
+
+        input {
+            transition: 0.25s;
+        }
+
+        input:checked::after,
+        input:checked::before {
+            color: black;
+            transition: color 0.5s;
+        }
+        input:checked::after {
+            color: grey;
+            cursor: pointer;
+        }
+
+        input:checked+label {
+            left: 1px;
+            right: 100px;
+            height: 32px;
+            width: 109px;
+            top: 2%;
+            background-color: white;
+            color: black;
+            transition: left 0.5s, right 0.4s 0.2s;
+        }
+
+        input:not(:checked) {
+            background-color: black;
+            transition: background 0.4s;
+
+        }
+
+        input:not(:checked)::before {
+            color: grey;
+            transition: color 0.5s;
+            cursor: pointer;
+        }
+
+        input:not(:checked)::after {
+            color: black;
+            transition: color 0.5s 0.2s;
+        }
+
+        input:not(:checked)+label {
+           
+            left: 110px;
+            top: 2%;
+            height: 32px;
+            width: 109px;
+            background: white;
+            transition: left 0.4s 0.2s, right 0.5s, background 0.35s;
+        }
+    }
+
+}
