@@ -1,0 +1,56 @@
+.strike {
+    position: absolute;
+    background-color: green;
+}
+
+.strike-row-1 {
+    width: 100%;
+    height: var(--strike-width);
+    top: 15%;
+}
+
+.strike-row-2 {
+    width: 100%;
+    height: var(--strike-width);
+    top: 49%;
+}
+
+.strike-row-3 {
+    width: 100%;
+    height: var(--strike-width);
+    top: 83%;
+}
+
+.strike-column-1 {
+    height: 100%;
+    width: var(--strike-width);
+    left: 15%;
+}
+
+.strike-column-2 {
+    height: 100%;
+    width: var(--strike-width);
+    left: 49%;
+}
+
+.strike-column-3 {
+    height: 100%;
+    width: var(--strike-width);
+    left: 83%;
+}
+
+.strike-diagonal-1 {
+    width: 90%;
+    height: calc(var(--strike-width) * 1.7);
+    top: 50%;
+    left: 7%;
+    transform: skewY(45deg);
+}
+
+.strike-diagonal-2 {
+    width: 90%;
+    height: calc(var(--strike-width) * 1.7);
+    top: 50%;
+    left: 3%;
+    transform: skewY(-45deg);
+}

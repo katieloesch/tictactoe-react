@@ -21,10 +21,12 @@
   --cell-size: 150px;
   
   /* making the symbol slightly smaller than the grid cell */
-  --icon-size: calc(var(--cell-size) * 0.9);
+  --icon-size: calc(var(--cell-size) * 0.85);
 
   --x-color: white;
   --o-color: white;
+
+  --strike-width: 10px;
 
   --font-main: 'comfortaa', 'futura', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }

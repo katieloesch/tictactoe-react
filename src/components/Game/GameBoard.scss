@@ -111,23 +111,37 @@
         cursor: not-allowed;
     }
 
-    #btn-start-game {
-       font-size: 2rem;
-       position: absolute;
-       background-color: black;
-       border: 2px solid white;
-       color:  white;
-       padding: 1.3rem;
-       cursor: pointer;
-       border-radius: 8px;
+    .overlay-start-game-btns {
+        position: absolute;
+        background-color: black;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        font-size: 1.75rem;
+        padding: 25px;
+        border: 1px solid white;
+        border-radius: 10px;
 
-       &:hover {
-        background-color: rgb(152, 201, 146);
-        border: 2px solid rgb(26, 60, 18);
-        color: rgb(26, 60, 18);
-        transition: 0.75s;
-       }
-    
+        .btn.start-game {
+            font-size: 1.8rem;
+            background-color: black;
+            border: 2px solid white;
+            color:  white;
+            padding: 0.5rem;
+            cursor: pointer;
+            border-radius: 8px;
+     
+            &:hover {
+             background-color: rgb(152, 201, 146);
+             border: 2px solid rgb(26, 60, 18);
+             color: rgb(26, 60, 18);
+             transition: 0.75s;
+            }
+         
+         }
+
     }
+
+    
 }
     

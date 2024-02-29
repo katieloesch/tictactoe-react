@@ -1,5 +1,6 @@
-import GameBoard from './components/Game/GameBoard';
+// import GameBoard from './components/Game/GameBoard';
 import Header from './components/Header/Header';
+import Tictactoe from './components/Tictactoe/Tictactoe';
 
 import './App.scss';
 
@@ -8,7 +9,9 @@ function App() {
     <div className="App flex">
       
       <Header />
-      <GameBoard />
+      <Tictactoe />
+      
+    
       
     </div>
   );
