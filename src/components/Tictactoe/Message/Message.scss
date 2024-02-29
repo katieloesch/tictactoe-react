@@ -1,0 +1,27 @@
+.message-game-over {
+    text-align: center;
+    border: 2px solid pink;
+    padding: 10px;
+    margin-top: 50px;
+    font-size: 1.5em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+
+    span {
+        font-size: 1.3em;
+
+    }
+
+    #btn-play-again {
+        padding: 8px 15px;
+        border-radius: 10px;
+        background-color: grey;
+       
+        font-size: 0.9em;
+        cursor: pointer;
+        
+    }
+}

@@ -19,14 +19,14 @@
 
 :root {
   --cell-size: 150px;
-  
-  /* making the symbol slightly smaller than the grid cell */
-  --icon-size: calc(var(--cell-size) * 0.85);
 
+  /* making the symbol slightly smaller than the grid cell */
+  --icon-size: calc(var(--cell-size) * 0.8);
   --x-color: white;
   --o-color: white;
 
   --strike-width: 10px;
+  --strike-color: rgb(255, 106, 0);
 
   --font-main: 'comfortaa', 'futura', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
@@ -53,8 +53,4 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.btn {
-  
 }

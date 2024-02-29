@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Grid from './Grid/Grid';
+import MessageGameOver from './Message/MessageGameOver';
+import { GameState } from './GameState'
 import './Tictactoe.scss';
+
 
 const PLAYER_X = 'x';
 const PLAYER_O = 'o';
 
-const checkWinner = (board, setStrikePosition) => {
+const checkWinner = (board, setStrikePosition, setGameState) => {
 
   const winningCombinations = [
 
@@ -37,13 +40,20 @@ const checkWinner = (board, setStrikePosition) => {
       tile0 === tile2
     ) {
       setStrikePosition(strikePosition)
-
+      if (tile0 === PLAYER_X) {
+        setGameState(GameState.xWins)
+      } else {
+        setGameState(GameState.oWins)
+      }
+      return; // if there is a winner, no need  to check for draw
     }
-
   }
 
-
-
+  //check for draw
+  const boardFull = board.every((tile) => (tile !== null));
+  if (boardFull) {
+    setGameState(GameState.draw);
+  }
 
 }
 
@@ -52,6 +62,7 @@ const Tictactoe = () => {
   const [board, setBoard] = useState(Array(9).fill(null));
   const [currentSymbol, setCurrentSymbol] = useState(PLAYER_X);
   const [strikePosition, setStrikePosition] = useState('');
+  const [gameState, setGameState] = useState(GameState.inProgress)
 
 
   const switchTurns = () => {
@@ -63,6 +74,11 @@ const Tictactoe = () => {
   }
 
   const handleTileClick = (index) => {
+
+    if (gameState !== GameState.inProgress) {
+      return;
+    }
+
     if (board[index] !== null) {
       return;
     }
@@ -78,9 +94,18 @@ const Tictactoe = () => {
 
   }
 
+  const resetGame = () => {
+    setGameState(GameState.inProgress);
+    setBoard(Array(9).fill(null))
+    setCurrentSymbol(PLAYER_X) // need to track even/odd number of games
+    setStrikePosition(null)
+
+
+  }
+
   useEffect(() => {
 
-    checkWinner(board, setStrikePosition);
+    checkWinner(board, setStrikePosition, setGameState);
 
   }, [board])
 
@@ -92,9 +117,12 @@ const Tictactoe = () => {
         currentSymbol={currentSymbol}
         handleTileClick={handleTileClick}
         strikePosition={strikePosition}
+        gameState={gameState}
       />
+
+      <MessageGameOver gameState={gameState} resetGame={resetGame} />
     
-      </div>
+    </div>
   )
 }
 
