@@ -23,3 +23,11 @@ check for draw
 
 tutorials & resources
 [Practice React and TypeScript: Tic Tac Toe Game](https://www.youtube.com/watch?v=kIAMcBJDFm4) by [Time to Code](https://www.youtube.com/@timetocode_with_ali)
+
+[Build an Awesome Version of Tic Tac Toe in React Tutorial](https://www.youtube.com/watch?v=4Gt_YyGf6B0) by [Coding With Adam](https://www.youtube.com/@CodingWithAdam)
+sounds: https://github.com/CodingWith-Adam/tic-tac-toe-react/tree/main/src/sounds
+repo: https://github.com/CodingWith-Adam/tic-tac-toe-react/tree/main
+
+sound effects
+
+- [tic-tac-toe-react](https://github.com/CodingWith-Adam/tic-tac-toe-react/tree/main/src/sounds) by [CodingWith-Adam](https://github.com/CodingWith-Adam)

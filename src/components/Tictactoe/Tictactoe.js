@@ -2,8 +2,15 @@ import React, { useEffect, useState } from 'react';
 import Grid from './Grid/Grid';
 import MessageGameOver from './Message/MessageGameOver';
 import { GameState } from './GameState'
+import clickSound from './../../assets/soundEffects/click.wav';
+import gameOverSound from './../../assets/soundEffects/game_over.wav';
 import './Tictactoe.scss';
 
+const soundClick = new Audio(clickSound);
+soundClick.volume = 0.5;
+
+const soundGameOver = new Audio(gameOverSound);
+soundGameOver.volume = 0.2;
 
 const PLAYER_X = 'x';
 const PLAYER_O = 'o';
@@ -64,7 +71,6 @@ const Tictactoe = () => {
   const [strikePosition, setStrikePosition] = useState('');
   const [gameState, setGameState] = useState(GameState.inProgress)
 
-
   const switchTurns = () => {
     if (currentSymbol === PLAYER_X) {
       setCurrentSymbol(PLAYER_O);
@@ -99,8 +105,6 @@ const Tictactoe = () => {
     setBoard(Array(9).fill(null))
     setCurrentSymbol(PLAYER_X) // need to track even/odd number of games
     setStrikePosition(null)
-
-
   }
 
   useEffect(() => {
@@ -108,6 +112,18 @@ const Tictactoe = () => {
     checkWinner(board, setStrikePosition, setGameState);
 
   }, [board])
+
+  useEffect(() => {
+    if (board.some(tile => tile !== null)) {
+      soundClick.play();
+    }
+  }, [board])
+
+  useEffect(() => {
+    if (gameState !== GameState.inProgress) {
+      soundGameOver.play();
+    }
+  }, [gameState])
 
   return (
     <div className='tictactoe'>
