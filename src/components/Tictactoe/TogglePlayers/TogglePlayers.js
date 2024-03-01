@@ -1,7 +1,7 @@
 import React from 'react'
 import './TogglePlayers.scss'
 
-const TogglePlayers = ({ session, setSession }) => {
+const TogglePlayers = ({ session, setSession, resetGame }) => {
 
     const handleToggleChange = (e) => {
     
@@ -14,13 +14,13 @@ const TogglePlayers = ({ session, setSession }) => {
                   symbol: 'x',
                   name: 'Player 1',
                   wins: 0,
-                  color: 'white'
+                  color: '#ffffff'
                 },
                 o: {
                   symbol: 'o',
                   name: 'Player 2',
                   wins: 0,
-                  color: 'white'
+                  color: '#ffffff'
                 },
                 draws: 0,
                 players: 2,
@@ -37,13 +37,13 @@ const TogglePlayers = ({ session, setSession }) => {
                   symbol: 'x',
                   name: 'Player',
                   wins: 0,
-                  color: 'white'
+                  color: '#ffffff'
                 },
                 o: {
                   symbol: 'o',
                   name: 'Computer',
                   wins: 0,
-                  color: 'white'
+                  color: '#ffffff'
                 },
                 draws: 0,
                 players: 1,
@@ -53,13 +53,16 @@ const TogglePlayers = ({ session, setSession }) => {
            
             console.log('1 player mode')
         }
+
+        resetGame();
     }
 
   return (
     <div className='toggle-1-2-players flex'>
 
         <span>
-            <input type='checkbox' id='switcher' checked={session.players === 2 ? true : false} onChange={handleToggleChange}  />
+            <input type='checkbox' id='switcher' checked={session.players ? session.players === 2 : false} onChange={handleToggleChange} />
+
             <label htmlFor='switcher'></label>
         </span>
 

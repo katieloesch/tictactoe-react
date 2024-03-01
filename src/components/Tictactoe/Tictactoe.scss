@@ -23,3 +23,13 @@
         gap: 10px;
     }
 }
+
+.scores {
+    flex-direction: row;
+    gap: 25px;
+
+    .score-x, .score-o {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

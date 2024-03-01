@@ -8,6 +8,7 @@ import TogglePlayers from './TogglePlayers/TogglePlayers';
 
 import './Tictactoe.scss';
 import Settings from './Settings/Settings';
+import PlayerEdit from './PlayerEdit/PlayerEdit';
 
 const soundClick = new Audio(clickSound);
 soundClick.volume = 0.5;
@@ -87,18 +88,19 @@ const Tictactoe = () => {
   const [currentSymbol, setCurrentSymbol] = useState(PLAYER_X);
   const [strikePosition, setStrikePosition] = useState('');
   const [gameState, setGameState] = useState(GameState.inProgress)
+  const [showEditForm, setShowEditForm] = useState('hide')
   const [session, setSession] = useState({
     x: {
       symbol: 'x',
       name: 'Player 1',
       wins: 0,
-      color: 'white'
+      color: '#ffffff'
     },
     o: {
       symbol: 'o',
       name: 'Player 2',
       wins: 0,
-      color: 'white'
+      color: '#ffffff'
     },
     draws: 0,
     players: 2,
@@ -134,8 +136,6 @@ const Tictactoe = () => {
       //computer's turn
     }
 
-
-
   }
 
   const resetGame = () => {
@@ -144,6 +144,7 @@ const Tictactoe = () => {
     setCurrentSymbol(PLAYER_X) // need to track even/odd number of games
     setStrikePosition(null)
   }
+
 
   useEffect(() => {
     checkWinDraw(board, setStrikePosition, setGameState, session, setSession);
@@ -176,7 +177,7 @@ const Tictactoe = () => {
         gameState={gameState}
       />
 
-      <TogglePlayers session={session} setSession={setSession} />
+      <TogglePlayers session={session} setSession={setSession} resetGame={resetGame}/>
       <div className='stats flex'>
         <div className='draws flex'>
           <span>draws</span>
@@ -190,11 +191,23 @@ const Tictactoe = () => {
 
       <Settings session={session} setSession={setSession} />
 
-      
       <div className='scores flex'>
-        scores
+       
+          <div className='score-x flex'>
+            <span>{session.x.name} - X</span><button className='btn btn-edit' onClick={() => {setShowEditForm('show')}}>edit</button>
+            <span>{session.x.wins}</span>
+          </div>
+
+          <div className='score-o flex'>
+            <span>{session.o.name} - O</span>
+            <span>{session.o.wins}</span>
+           
+          </div>
+      
       </div>
+
       <MessageGameOver gameState={gameState} resetGame={resetGame} session={session}/>
+      <PlayerEdit session={session} setSession={setSession} display={showEditForm} setDisplay={setShowEditForm} />
       
     </div>
   )
