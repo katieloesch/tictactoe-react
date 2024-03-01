@@ -4,8 +4,10 @@ import MessageGameOver from './Message/MessageGameOver';
 import { GameState } from './GameState'
 import clickSound from './../../assets/soundEffects/click.wav';
 import gameOverSound from './../../assets/soundEffects/game_over.wav';
-import './Tictactoe.scss';
 import TogglePlayers from './TogglePlayers/TogglePlayers';
+
+import './Tictactoe.scss';
+import Settings from './Settings/Settings';
 
 const soundClick = new Audio(clickSound);
 soundClick.volume = 0.5;
@@ -16,7 +18,8 @@ soundGameOver.volume = 0.2;
 const PLAYER_X = 'x';
 const PLAYER_O = 'o';
 
-const checkWinDraw = (board, setStrikePosition, setGameState) => {
+const checkWinDraw = (board, setStrikePosition, setGameState, session, setSession) => {
+  console.log(session)
 
   const winningCombinations = [
 
@@ -48,11 +51,21 @@ const checkWinDraw = (board, setStrikePosition, setGameState) => {
       tile0 === tile2
     ) {
       setStrikePosition(strikePosition)
+      
+      const updatedSession = {...session};
+
       if (tile0 === PLAYER_X) {
-        setGameState(GameState.xWins)
+        setGameState(GameState.xWins);
+        updatedSession.x.wins += 1;
+        updatedSession.gamesPlayed += 1;
+       
+
       } else {
-        setGameState(GameState.oWins)
+        setGameState(GameState.oWins);
+        updatedSession.o.wins += 1;
+        updatedSession.gamesPlayed += 1;
       }
+      setSession(updatedSession);
       return; // if there is a winner, no need  to check for draw
     }
   }
@@ -61,6 +74,10 @@ const checkWinDraw = (board, setStrikePosition, setGameState) => {
   const boardFull = board.every((tile) => (tile !== null));
   if (boardFull) {
     setGameState(GameState.draw);
+    const updatedSession = {...session};
+    updatedSession.gamesPlayed += 1;
+    updatedSession.draws += 1;
+    setSession(updatedSession);
   }
 }
 
@@ -84,7 +101,7 @@ const Tictactoe = () => {
       color: 'white'
     },
     draws: 0,
-    players: 1,
+    players: 2,
     gamesPlayed: 0,
     mute: false
   })
@@ -111,9 +128,12 @@ const Tictactoe = () => {
     updatedBoard[index] = currentSymbol;
     setBoard(updatedBoard);
 
-    // check for win/ draw
+    if (session.players == 2) {
+      switchTurns();
+    } else {
+      //computer's turn
+    }
 
-    switchTurns();
 
 
   }
@@ -126,20 +146,22 @@ const Tictactoe = () => {
   }
 
   useEffect(() => {
-
-    checkWinDraw(board, setStrikePosition, setGameState);
-
+    checkWinDraw(board, setStrikePosition, setGameState, session, setSession);
   }, [board])
 
   useEffect(() => {
     if (board.some(tile => tile !== null)) {
-      soundClick.play();
+      if (!session.mute) {
+        soundClick.play();
+      }
     }
   }, [board])
 
   useEffect(() => {
     if (gameState !== GameState.inProgress) {
-      soundGameOver.play();
+      if (!session.mute) {
+        soundGameOver.play();
+      }
     }
   }, [gameState])
 
@@ -154,11 +176,26 @@ const Tictactoe = () => {
         gameState={gameState}
       />
 
-      <TogglePlayers />
+      <TogglePlayers session={session} setSession={setSession} />
+      <div className='stats flex'>
+        <div className='draws flex'>
+          <span>draws</span>
+          <span>{session.draws}</span>
+        </div>
+        <div className='games-played flex'>
+          <span>games played</span>
+          <span>{session.gamesPlayed}</span>
+        </div>
+      </div>
 
-      <MessageGameOver gameState={gameState} resetGame={resetGame} />
+      <Settings session={session} setSession={setSession} />
+
       
-    
+      <div className='scores flex'>
+        scores
+      </div>
+      <MessageGameOver gameState={gameState} resetGame={resetGame} session={session}/>
+      
     </div>
   )
 }

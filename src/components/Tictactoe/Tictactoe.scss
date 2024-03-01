@@ -1,0 +1,25 @@
+.settings {
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+
+    img {
+        svg {
+            z-index: 10;
+            stroke: white;
+        }
+    }
+
+
+}
+.stats {
+    flex-direction: row;
+    gap: 25px;
+
+    .draws, .games-played {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
