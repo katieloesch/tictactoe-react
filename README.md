@@ -31,3 +31,5 @@ repo: https://github.com/CodingWith-Adam/tic-tac-toe-react/tree/main
 sound effects
 
 - [tic-tac-toe-react](https://github.com/CodingWith-Adam/tic-tac-toe-react/tree/main/src/sounds) by [CodingWith-Adam](https://github.com/CodingWith-Adam)
+
+day 3: 01/03/2024

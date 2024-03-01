@@ -21,7 +21,6 @@ const PlayerEdit = ({ session, setSession, display, setDisplay }) => {
 
     const handleFormChange = (e) => {
         const newInput = {...formData, [e.target.name]: e.target.value}
-        console.log(newInput)
         setFormData(newInput)
     };
 

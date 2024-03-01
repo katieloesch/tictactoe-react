@@ -1,26 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import Grid from './Grid/Grid';
-import MessageGameOver from './Message/MessageGameOver';
-import { GameState } from './GameState'
-import clickSound from './../../assets/soundEffects/click.wav';
-import gameOverSound from './../../assets/soundEffects/game_over.wav';
-import TogglePlayers from './TogglePlayers/TogglePlayers';
+import JSConfetti from 'js-confetti';
 
-import './Tictactoe.scss';
+import { GameState } from './GameState'
+
+import Grid from './Grid/Grid';
+import TogglePlayers from './TogglePlayers/TogglePlayers';
 import Settings from './Settings/Settings';
 import PlayerEdit from './PlayerEdit/PlayerEdit';
+import MessageGameOver from './Message/MessageGameOver';
 
-const soundClick = new Audio(clickSound);
-soundClick.volume = 0.5;
-
-const soundGameOver = new Audio(gameOverSound);
-soundGameOver.volume = 0.2;
+import sounds from '../../assets/soundEffects/sounds';
+import './Tictactoe.scss';
 
 const PLAYER_X = 'x';
 const PLAYER_O = 'o';
+const jsConfetti = new JSConfetti();
 
 const checkWinDraw = (board, setStrikePosition, setGameState, session, setSession) => {
-  console.log(session)
 
   const winningCombinations = [
 
@@ -59,12 +55,25 @@ const checkWinDraw = (board, setStrikePosition, setGameState, session, setSessio
         setGameState(GameState.xWins);
         updatedSession.x.wins += 1;
         updatedSession.gamesPlayed += 1;
+
+        if (!session.mute) {
+          sounds.winSound.play();
+        }
+      
+        jsConfetti.addConfetti();
+
        
 
       } else {
         setGameState(GameState.oWins);
         updatedSession.o.wins += 1;
         updatedSession.gamesPlayed += 1;
+
+        if (!session.mute) {
+          sounds.winSound.play();
+        }
+
+        jsConfetti.addConfetti();
       }
       setSession(updatedSession);
       return; // if there is a winner, no need  to check for draw
@@ -75,10 +84,15 @@ const checkWinDraw = (board, setStrikePosition, setGameState, session, setSessio
   const boardFull = board.every((tile) => (tile !== null));
   if (boardFull) {
     setGameState(GameState.draw);
+    if (!session.mute) {
+      sounds.drawSound.play();
+    }
+
     const updatedSession = {...session};
     updatedSession.gamesPlayed += 1;
     updatedSession.draws += 1;
     setSession(updatedSession);
+
   }
 }
 
@@ -140,9 +154,20 @@ const Tictactoe = () => {
 
   const resetGame = () => {
     setGameState(GameState.inProgress);
-    setBoard(Array(9).fill(null))
-    setCurrentSymbol(PLAYER_X) // need to track even/odd number of games
-    setStrikePosition(null)
+    setBoard(Array(9).fill(null));
+    //setCurrentSymbol(PLAYER_X) // need to track even/odd number of games
+
+    if (session.gamesPlayed === 0) {    //if this is the first game
+      setCurrentSymbol(PLAYER_X);  // x symbol/player1 starts by default
+
+    } else if (session.gamesPlayed%2 === 0) {   //After the first round(0), players take turns starting game
+       setCurrentSymbol(PLAYER_X);          // so x symbol starts for even number or games (i.e. 0, 2, 4, 6, etc)
+        
+    } else {                         //player2 starts the second round(1)
+        setCurrentSymbol(PLAYER_O);      //so o symbol starts for odd number of games (i.e. 1, 3, 5, 7, etc)
+    }
+
+    setStrikePosition(null);
   }
 
 
@@ -151,20 +176,26 @@ const Tictactoe = () => {
   }, [board])
 
   useEffect(() => {
+
     if (board.some(tile => tile !== null)) {
       if (!session.mute) {
-        soundClick.play();
-      }
-    }
-  }, [board])
 
-  useEffect(() => {
-    if (gameState !== GameState.inProgress) {
-      if (!session.mute) {
-        soundGameOver.play();
+        if (currentSymbol === PLAYER_X) {
+          sounds.clickXSound.play()
+        } else {
+          sounds.clickOSound.play()
+        }
       }
     }
-  }, [gameState])
+  }, [board, currentSymbol])
+
+  // useEffect(() => {
+  //   if (gameState !== GameState.inProgress) {
+  //     if (!session.mute) {
+  //       soundGameOver.play();
+  //     }
+  //   }
+  // }, [gameState])
 
   return (
     <div className='tictactoe'>
@@ -178,6 +209,7 @@ const Tictactoe = () => {
       />
 
       <TogglePlayers session={session} setSession={setSession} resetGame={resetGame}/>
+
       <div className='stats flex'>
         <div className='draws flex'>
           <span>draws</span>
@@ -189,14 +221,16 @@ const Tictactoe = () => {
         </div>
       </div>
 
-      <Settings session={session} setSession={setSession} />
+      <Settings session={session} setSession={setSession} resetGame={resetGame} />
 
       <div className='scores flex'>
        
           <div className='score-x flex'>
-            <span>{session.x.name} - X</span><button className='btn btn-edit' onClick={() => {setShowEditForm('show')}}>edit</button>
+            <span>{session.x.name} - X</span>
             <span>{session.x.wins}</span>
           </div>
+
+          <button className='btn btn-edit' onClick={() => {setShowEditForm('show')}}>edit</button>
 
           <div className='score-o flex'>
             <span>{session.o.name} - O</span>
@@ -206,7 +240,7 @@ const Tictactoe = () => {
       
       </div>
 
-      <MessageGameOver gameState={gameState} resetGame={resetGame} session={session}/>
+      <MessageGameOver gameState={gameState} resetGame={resetGame} session={session} />
       <PlayerEdit session={session} setSession={setSession} display={showEditForm} setDisplay={setShowEditForm} />
       
     </div>

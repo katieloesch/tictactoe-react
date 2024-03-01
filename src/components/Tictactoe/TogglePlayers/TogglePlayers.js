@@ -1,9 +1,14 @@
 import React from 'react'
+import sounds from '../../../assets/soundEffects/sounds';
 import './TogglePlayers.scss'
 
 const TogglePlayers = ({ session, setSession, resetGame }) => {
 
     const handleToggleChange = (e) => {
+
+      if (!session.mute) {
+        sounds.clickOSound.play();
+      }
     
         if (e.target.checked) {
             // true: 2 players
@@ -28,7 +33,7 @@ const TogglePlayers = ({ session, setSession, resetGame }) => {
                 mute: false
               })
 
-            console.log('2 player mode')
+           
 
         } else {
 
@@ -51,7 +56,7 @@ const TogglePlayers = ({ session, setSession, resetGame }) => {
                 mute: false
               })
            
-            console.log('1 player mode')
+            
         }
 
         resetGame();
@@ -62,7 +67,6 @@ const TogglePlayers = ({ session, setSession, resetGame }) => {
 
         <span>
             <input type='checkbox' id='switcher' checked={session.players ? session.players === 2 : false} onChange={handleToggleChange} />
-
             <label htmlFor='switcher'></label>
         </span>
 

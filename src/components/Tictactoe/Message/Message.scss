@@ -1,13 +1,10 @@
 .message-game-over {
     z-index: 3;
-    display: none;
+    // display: none;
     position: fixed;
     text-align: center;
     border-radius: 25px;
-    top: 25%;
-    left: 35%;
-    right: 35%;
-    bottom: 25%;
+    
     text-align: center;
     padding: 10px;
     font-size: 1.5em;
@@ -16,7 +13,12 @@
     justify-content: center;
     gap: 15px;
     background-color: rgba(59, 82, 53, 0.97);
-
+   
+    top: 50%; // Start at the vertical center
+    left: 50%; // Start at the horizontal center
+    transform: translate(-50%, 100vh); // Initially off-screen, centered horizontally
+    opacity: 0; // Start fully transparent
+  
     span {
         font-size: 1.3em;
 
