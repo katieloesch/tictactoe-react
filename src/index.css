@@ -1,35 +1,31 @@
-
-/* https://en.bestfonts.pro/font/comfortaa#google_vignette */
-
-
-@font-face {
+@font-face { /* source: https://en.bestfonts.pro/font/comfortaa#google_vignette */
   font-family: 'comfortaa';
   src: url('./assets/fonts/comfortaa-regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
-
 }
-@font-face {
+@font-face { /* source: https://en.bestfonts.pro/font/comfortaa#google_vignette */
   font-family: 'comfortaa';
   src: url('./assets/fonts/comfortaa-bold.woff') format('woff');
   font-weight: bold;
   font-style: normal;
-
 }
 
 :root {
   --cell-size: 150px;
+  --icon-size: calc(var(--cell-size) * 0.8);  /* symbol slightly smaller than the grid cell */
+  --x-color: #ffffff;
+  --o-color: #ffffff;
 
-  /* making the symbol slightly smaller than the grid cell */
-  --icon-size: calc(var(--cell-size) * 0.8);
-  --x-color: white;
-  --o-color: white;
+  --green-a: rgba(59, 82, 53, 0.97);
+  --blue-a: rgba(52, 66, 114, 0.97);
 
   --strike-width: 10px;
-  --strike-color: rgb(255, 106, 0);
+  --strike-color: rgba(105, 212, 78, 0.97);
 
   --font-main: 'comfortaa', 'futura', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
+
 *, *::after, *::before {
   box-sizing: border-box;
 }

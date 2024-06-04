@@ -16,6 +16,7 @@ day 1: 27/01/2024
 
 dependencies:
 "gsap": "^3.12.5",
+js-confetti
 
 day2: 28/01/2024
 check for win
@@ -28,8 +29,41 @@ tutorials & resources
 sounds: https://github.com/CodingWith-Adam/tic-tac-toe-react/tree/main/src/sounds
 repo: https://github.com/CodingWith-Adam/tic-tac-toe-react/tree/main
 
-sound effects
-
-- [tic-tac-toe-react](https://github.com/CodingWith-Adam/tic-tac-toe-react/tree/main/src/sounds) by [CodingWith-Adam](https://github.com/CodingWith-Adam)
+- toggle button for single/multi player
+  - [Pure Css Custom Checkbox Design || CSS Toggle Switch](https://www.youtube.com/watch?v=fLu6yrGF47I) by [Coding Circulate](https://www.youtube.com/@codingcirculate)
 
 day 3: 01/03/2024
+sound effects
+confetti
+motion effects
+
+day 4: 04/06/2024
+
+- turn display
+
+- On this day I wanted to tackle the logic for the one-player mode where the user plays against the computer. As I had never created an AI before I decided to start off by having the computer randomly pick an empty cell when it's its turn and then come back later to make it 'smarter' and make better picks.
+
+- To do this, I first created an empty array and then pushed in the indexes of all the empty cells on the board, so the computer knows which tiles are available. I then have the program randomly pick one of those indexes and make its move on the board.
+
+```JavaScript
+  const computerMove = (board) => {
+
+    setCurrentSymbol(PLAYER_O);
+    const emptyCells = [];
+
+    board.forEach((cell, index) => {
+      if (cell === null) {
+        emptyCells.push(index)
+      }
+    })
+
+    const randomIndex = Math.floor(Math.random() * emptyCells.length)
+    const computerMove = emptyCells[randomIndex]
+
+    const updatedBoard = [...board];
+    updatedBoard[computerMove] = session.o.symbol;
+    setBoard(updatedBoard);
+    setCurrentSymbol(PLAYER_X);
+
+  }
+```

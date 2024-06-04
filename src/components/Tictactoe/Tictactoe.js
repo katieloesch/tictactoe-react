@@ -8,6 +8,8 @@ import TogglePlayers from './TogglePlayers/TogglePlayers';
 import Settings from './Settings/Settings';
 import PlayerEdit from './PlayerEdit/PlayerEdit';
 import MessageGameOver from './Message/MessageGameOver';
+import TurnDisplay from './TurnDispay/TurnDisplay';
+
 
 import sounds from '../../assets/soundEffects/sounds';
 import './Tictactoe.scss';
@@ -130,6 +132,27 @@ const Tictactoe = () => {
     }
   }
 
+  const computerMove = (board) => {
+    
+    setCurrentSymbol(PLAYER_O);
+    const emptyCells = [];
+
+    board.forEach((cell, index) => {
+      if (cell === null) {
+        emptyCells.push(index)
+      }
+    })
+
+    const randomIndex = Math.floor(Math.random() * emptyCells.length)
+    const computerMove = emptyCells[randomIndex]
+   
+    const updatedBoard = [...board];
+    updatedBoard[computerMove] = session.o.symbol;
+    setBoard(updatedBoard);
+    setCurrentSymbol(PLAYER_X);
+
+  }
+
   const handleTileClick = (index) => {
 
     if (gameState !== GameState.inProgress) {
@@ -142,12 +165,12 @@ const Tictactoe = () => {
 
     const updatedBoard = [...board];
     updatedBoard[index] = currentSymbol;
-    setBoard(updatedBoard);
+    setBoard(board => updatedBoard);
 
-    if (session.players == 2) {
+    if (session.players === 2) {
       switchTurns();
     } else {
-      //computer's turn
+      computerMove(updatedBoard);
     }
 
   }
@@ -155,6 +178,7 @@ const Tictactoe = () => {
   const resetGame = () => {
     setGameState(GameState.inProgress);
     setBoard(Array(9).fill(null));
+    setStrikePosition(null);
     //setCurrentSymbol(PLAYER_X) // need to track even/odd number of games
 
     if (session.gamesPlayed === 0) {    //if this is the first game
@@ -165,9 +189,10 @@ const Tictactoe = () => {
         
     } else {                         //player2 starts the second round(1)
         setCurrentSymbol(PLAYER_O);      //so o symbol starts for odd number of games (i.e. 1, 3, 5, 7, etc)
+        if (session.players === 1 ) {
+          computerMove(Array(9).fill(null));
+        }
     }
-
-    setStrikePosition(null);
   }
 
 
@@ -198,7 +223,7 @@ const Tictactoe = () => {
   // }, [gameState])
 
   return (
-    <div className='tictactoe'>
+    <div className='tictactoe flex'>
       
       <Grid
         board={board}
@@ -210,35 +235,46 @@ const Tictactoe = () => {
 
       <TogglePlayers session={session} setSession={setSession} resetGame={resetGame}/>
 
-      <div className='stats flex'>
-        <div className='draws flex'>
-          <span>draws</span>
-          <span>{session.draws}</span>
-        </div>
-        <div className='games-played flex'>
-          <span>games played</span>
-          <span>{session.gamesPlayed}</span>
-        </div>
-      </div>
 
       <Settings session={session} setSession={setSession} resetGame={resetGame} />
 
       <div className='scores flex'>
-       
+
+        <div className='scores-top flex'>
+          <button className='btn' id='btn-edit' onClick={() => {setShowEditForm('show')}}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 512 512"><path d="M441 58.9L453.1 71c9.4 9.4 9.4 24.6 0 33.9L424 134.1 377.9 88 407 58.9c9.4-9.4 24.6-9.4 33.9 0zM209.8 256.2L344 121.9 390.1 168 255.8 302.2c-2.9 2.9-6.5 5-10.4 6.1l-58.5 16.7 16.7-58.5c1.1-3.9 3.2-7.5 6.1-10.4zM373.1 25L175.8 222.2c-8.7 8.7-15 19.4-18.3 31.1l-28.6 100c-2.4 8.4-.1 17.4 6.1 23.6s15.2 8.5 23.6 6.1l100-28.6c11.8-3.4 22.5-9.7 31.1-18.3L487 138.9c28.1-28.1 28.1-73.7 0-101.8L474.9 25C446.8-3.1 401.2-3.1 373.1 25zM88 64C39.4 64 0 103.4 0 152V424c0 48.6 39.4 88 88 88H360c48.6 0 88-39.4 88-88V312c0-13.3-10.7-24-24-24s-24 10.7-24 24V424c0 22.1-17.9 40-40 40H88c-22.1 0-40-17.9-40-40V152c0-22.1 17.9-40 40-40H200c13.3 0 24-10.7 24-24s-10.7-24-24-24H88z"/></svg>
+          </button>
+          
           <div className='score-x flex'>
-            <span>{session.x.name} - X</span>
+            <span><svg xmlns="http://www.w3.org/2000/svg" width='1em' height='1em' viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>            - {session.x.name}: </span>
             <span>{session.x.wins}</span>
           </div>
 
-          <button className='btn btn-edit' onClick={() => {setShowEditForm('show')}}>edit</button>
-
           <div className='score-o flex'>
-            <span>{session.o.name} - O</span>
+            <span><b>O</b> - {session.o.name}: </span>
             <span>{session.o.wins}</span>
-           
           </div>
+
+        </div>
+
+        <div className='scores-bottom flex'>
+          <div className='draws flex'>
+            <span>draws: </span>
+            <span>{session.draws}</span>
+          </div>
+
+          <div className='games-played flex'>
+            <span>games played: </span>
+            <span>{session.gamesPlayed}</span>
+          </div>
+
+        </div>
+
+
       
       </div>
+
+      <TurnDisplay session={session} currentSymbol={currentSymbol} gameState={gameState} />
 
       <MessageGameOver gameState={gameState} resetGame={resetGame} session={session} />
       <PlayerEdit session={session} setSession={setSession} display={showEditForm} setDisplay={setShowEditForm} />

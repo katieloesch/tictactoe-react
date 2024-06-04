@@ -1,59 +1,73 @@
 .message-game-over {
     z-index: 3;
-    // display: none;
     position: fixed;
     text-align: center;
     border-radius: 25px;
-    
     text-align: center;
-    padding: 10px;
+    padding: 2rem;
     font-size: 1.5em;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 15px;
-    background-color: rgba(59, 82, 53, 0.97);
-   
-    top: 50%; // Start at the vertical center
-    left: 50%; // Start at the horizontal center
-    transform: translate(-50%, 100vh); // Initially off-screen, centered horizontally
-    opacity: 0; // Start fully transparent
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, 100vh); 
+    opacity: 0;
   
     span {
         font-size: 1.3em;
-
     }
 
-    &.x-winner {display: flex;}
-    &.o-winner {display: flex;}
-    &.draw {display: flex;}
+    &.x-winner, &.o-winner, &.draw {
+        display: flex;
+        color: yellow;
+        font-size: 2rem;
+        gap: 2rem;
 
+        span {
+            width: 90%;
+            line-height: 1.5;
+        }
 
-    // .message {   
-    //     justify-content: center;
-    //     align-items: center;
-    //     color: yellow;
-    //     font-size: 6rem;
-    // }
-    
-    // .message.display-win {
-    //     display: flex;
-    //     background-color: rgba(59, 82, 53, 0.97);
-    //     color: yellow;
-    // }
-    
-    // .message.display-draw {
-    //     display: flex;
-    //     background-color: rgba(52, 66, 114, 0.97)
-    // }
+        #btn-play-again {
+            font-size: 1.6rem;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+    }
 
-    #btn-play-again {
-        padding: 8px 15px;
-        border-radius: 10px;
-        background-color: grey;
-       
-        font-size: 0.9em;
-        cursor: pointer;
-        
+    &.x-winner, &.o-winner {
+        background-color: var(--green-a);
+
+        #btn-play-again {
+            background-color: rgb(164, 197, 153);
+            border: 3px solid rgb(40, 61, 35);
+            color:  rgb(40, 61, 35);
+        }
+
+        #btn-play-again:hover {
+            background-color: rgb(40, 61, 35);
+            border: 3px solid rgb(164, 197, 153);
+            color: rgb(164, 197, 153);
+            transition: 0.4s;
+        }
+    }
+
+    &.draw {
+        background-color: var(--blue-a);
+
+        #btn-play-again {
+            background-color: rgb(128, 193, 229);
+            border: 3px solid rgb(47, 37, 94);
+            color:  rgb(47, 37, 94);
+        } 
+
+        #btn-play-again:hover {
+            background-color: rgb(47, 37, 94);
+            border: 3px solid rgb(128, 193, 229);
+            color: rgb(128, 193, 229);
+            transition: 0.4s;
+        }
     }
 }

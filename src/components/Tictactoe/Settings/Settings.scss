@@ -1,7 +1,12 @@
 .settings {
     margin-left: 15px;
     gap: 1rem;
-
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    
     button {
         background-color: black;
         color: white;
@@ -14,13 +19,9 @@
             transform: scale(1.1);
             transition: 0.3s;
         }
-        
-        #save-icon {
-            scale: 1.1;
-        }
 
         #retrieve-icon {
-            scale: 0.95;
+            scale: 0.90;
         }
 
         #icon-reset:hover {

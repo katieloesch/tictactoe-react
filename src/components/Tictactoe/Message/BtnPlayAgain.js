@@ -3,7 +3,6 @@ import { GameState } from '../GameState';
 import sounds from '../../../assets/soundEffects/sounds';
 import './Message.scss';
 
-
 const BtnPlayAgain = ({ gameState, resetGame, mute, slideOut }) => {
 
     if (gameState === GameState.inProgress) {
