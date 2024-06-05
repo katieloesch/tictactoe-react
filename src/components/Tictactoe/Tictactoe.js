@@ -75,7 +75,9 @@ const checkWinDraw = (board, setStrikePosition, setGameState, session, setSessio
           sounds.winSound.play();
         }
 
-        jsConfetti.addConfetti();
+        if (session.players === 2) {
+          jsConfetti.addConfetti();
+        }
       }
       setSession(updatedSession);
       return; // if there is a winner, no need  to check for draw
@@ -133,25 +135,47 @@ const Tictactoe = () => {
   }
 
   const computerMove = (board) => {
-    
     setCurrentSymbol(PLAYER_O);
-    const emptyCells = [];
+    setTimeout(() => {
+      const emptyCells = [];
+  
+      board.forEach((cell, index) => {
+        if (cell === null) {
+          emptyCells.push(index);
+        }
+      });
+  
+      const randomIndex = Math.floor(Math.random() * emptyCells.length);
+      const computerMove = emptyCells[randomIndex];
+  
+      const updatedBoard = [...board];
+      updatedBoard[computerMove] = session.o.symbol;
+      setBoard(updatedBoard);
+      setCurrentSymbol(PLAYER_X);
+    }, 750);
+  };
+  
 
-    board.forEach((cell, index) => {
-      if (cell === null) {
-        emptyCells.push(index)
-      }
-    })
+  // const computerMove = (board) => {
+    
+  //   setCurrentSymbol(PLAYER_O);
+  //   const emptyCells = [];
 
-    const randomIndex = Math.floor(Math.random() * emptyCells.length)
-    const computerMove = emptyCells[randomIndex]
+  //   board.forEach((cell, index) => {
+  //     if (cell === null) {
+  //       emptyCells.push(index)
+  //     }
+  //   })
+
+  //   const randomIndex = Math.floor(Math.random() * emptyCells.length)
+  //   const computerMove = emptyCells[randomIndex]
    
-    const updatedBoard = [...board];
-    updatedBoard[computerMove] = session.o.symbol;
-    setBoard(updatedBoard);
-    setCurrentSymbol(PLAYER_X);
+  //   const updatedBoard = [...board];
+  //   updatedBoard[computerMove] = session.o.symbol;
+  //   setBoard(updatedBoard);
+  //   setCurrentSymbol(PLAYER_X);
 
-  }
+  // }
 
   const handleTileClick = (index) => {
 
@@ -234,6 +258,8 @@ const Tictactoe = () => {
       />
 
       <TogglePlayers session={session} setSession={setSession} resetGame={resetGame}/>
+      <TurnDisplay session={session} currentSymbol={currentSymbol} gameState={gameState} />
+
 
 
       <Settings session={session} setSession={setSession} resetGame={resetGame} />
@@ -273,8 +299,6 @@ const Tictactoe = () => {
 
       
       </div>
-
-      <TurnDisplay session={session} currentSymbol={currentSymbol} gameState={gameState} />
 
       <MessageGameOver gameState={gameState} resetGame={resetGame} session={session} />
       <PlayerEdit session={session} setSession={setSession} display={showEditForm} setDisplay={setShowEditForm} />
