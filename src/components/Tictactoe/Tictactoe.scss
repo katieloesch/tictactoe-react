@@ -2,61 +2,65 @@
     flex-direction: column;
     gap: 1rem;
 
-    .scores {
-        flex-direction: column;
-        gap: 1rem;
+    .title-main {
+        font-size: 60px;
+        text-align: center;
+        color: var(--primary-ttt);
+        padding-bottom: 20px;
+    }
 
-        .scores-top {
-            flex-direction: row;
-            gap: 25px;
+    section {
 
-            #btn-edit {
-                background-color: transparent;
-                cursor: pointer;
-                color: white;
-                width: 30px;
-                height: 30px;
-                border: none;
-    
-                font-size: 1.4rem;
-    
-                svg {
-                    fill: white;
+        .scores {
+            flex-direction: column;
+            gap: 1rem;
+
+            .scores-top {
+                flex-direction: row;
+                gap: 25px;
+
+                #btn-edit {
+                    background-color: transparent;
+                    cursor: pointer;
+                    color: white;
+                    width: 30px;
+                    height: 30px;
+                    border: none;
+                    font-size: 1.4rem;
+        
+                    svg {
+                        fill: white;
+                    }
+        
+                    svg:hover {
+                        transform: scale(1.1);
+                        transition: 0.3s;
+                    }
                 }
-    
-                svg:hover {
-                    transform: scale(1.1);
-                    transition: 0.3s;
+
+                .score-x, .score-o {
+                    flex-direction: row;
+                    gap: 10px;
+                    font-size: 1.25rem;
+
+                    svg {
+                        fill: white;
+                        margin-bottom: -4px;
+                        scale: 1.25;
+                    }
                 }
             }
 
-            .score-x, .score-o {
+            .scores-bottom {
                 flex-direction: row;
-                gap: 10px;
-                font-size: 1.25rem;
+                gap: 25px;
 
-                svg {
-                    fill: white;
-                    margin-bottom: -4px;
-                    scale: 1.25;
+                .draws, .games-played {
+                    flex-direction: row;
+                    gap: 10px;
+                    font-size: 1.25rem;
                 }
             }
         }
-
-       
-        
-        .scores-bottom {
-            flex-direction: row;
-            gap: 25px;
-
-            .draws, .games-played {
-                flex-direction: row;
-                gap: 10px;
-                font-size: 1.25rem;
-            }
-        }
-
-
-        
     }
 }

@@ -126,10 +126,25 @@ const Tictactoe = () => {
     const updatedBoard = [...board];
     updatedBoard[bestMove.index] = PLAYER_O;
 
+    const emptyCells = board.reduce((acc, curr, idx) => {
+      if (curr === null) acc.push(idx);
+      return acc;
+    }, []);
+
+    let delay;
+
+    if (emptyCells.length === 9) {
+      delay = 75
+    } else {
+      delay = 650
+    }
+
+
+
     setTimeout(() => {
       setBoard(updatedBoard);
       setCurrentSymbol(PLAYER_X);
-    }, 700)
+    }, delay)
 
   };
 
@@ -196,15 +211,16 @@ const Tictactoe = () => {
 
   return (
     <div className='tictactoe flex'>
-      
+
+      <h1 className='title-main flex'>Tic Tac Toe</h1>          
       <Grid board={board} currentSymbol={currentSymbol} handleTileClick={handleTileClick} strikePosition={strikePosition} gameState={gameState} />
 
-      <TogglePlayers session={session} setSession={setSession} resetGame={resetGame} setCurrentSymbol={setCurrentSymbol} />
-      <TurnDisplay session={session} currentSymbol={currentSymbol} gameState={gameState} />
+      <section>
+        <TogglePlayers session={session} setSession={setSession} resetGame={resetGame} setCurrentSymbol={setCurrentSymbol} />
 
-      <Settings session={session} setSession={setSession} resetGame={resetGame} />
+        <TurnDisplay session={session} currentSymbol={currentSymbol} gameState={gameState} />
 
-      <div className='scores flex'>
+        <div className='scores flex'>
 
         <div className='scores-top flex'>
           <button className='btn' id='btn-edit' onClick={() => {setShowEditForm('show')}}>
@@ -238,10 +254,12 @@ const Tictactoe = () => {
 
 
       
-      </div>
+        </div>
+      </section>
 
-      <MessageGameOver gameState={gameState} resetGame={resetGame} session={session} />
-      <PlayerEdit session={session} setSession={setSession} display={showEditForm} setDisplay={setShowEditForm} />
+      <Settings session={session} setSession={setSession} resetGame={resetGame} />
+      <MessageGameOver gameState={gameState} resetGame={resetGame} session={session} /> {/* overlay */}
+      <PlayerEdit session={session} setSession={setSession} display={showEditForm} setDisplay={setShowEditForm} /> {/* overlay */}
       
     </div>
   )
