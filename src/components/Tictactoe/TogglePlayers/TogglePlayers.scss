@@ -12,7 +12,7 @@
             width: 220px;
             height: 35px;
             border-radius: 25px;
-            background-color: black;
+            background-color: var(--bg-ttt);
             color: white;
             outline: none;
             font-size: 1.1rem;
@@ -40,7 +40,7 @@
         }
 
         input:checked {
-            background-color: black;
+            background-color: var(--bg-ttt);
         }
 
         label {
@@ -57,7 +57,7 @@
 
         input:checked::after,
         input:checked::before {
-            color: black;
+            color: var(--bg-ttt);
             transition: color 0.5s;
         }
 
@@ -73,12 +73,12 @@
             width: 109px;
             top: 2%;
             background-color: white;
-            color: black;
+            color: var(--bg-ttt);
             transition: left 0.5s, right 0.4s 0.2s;
         }
 
         input:not(:checked) {
-            background-color: black;
+            background-color: var(--bg-ttt);
             transition: background 0.4s;
         }
 
@@ -89,7 +89,7 @@
         }
 
         input:not(:checked)::after {
-            color: black;
+            color: var(--bg-ttt);
             transition: color 0.5s 0.2s;
         }
 

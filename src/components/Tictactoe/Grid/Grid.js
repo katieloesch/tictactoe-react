@@ -1,7 +1,7 @@
 import React from 'react'
 import Tile from './Tile'
 import Strike from '../Strike/Strike'
-import { GameState } from '../GameState';
+import { GameState } from '../helper.js';
 import './Grid.scss'
 
 const Grid = ({ board, currentSymbol, handleTileClick, strikePosition, gameState }) => {

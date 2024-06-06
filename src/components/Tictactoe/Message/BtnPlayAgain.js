@@ -1,5 +1,5 @@
 import React from 'react';
-import { GameState } from '../GameState';
+import { GameState } from '../helper.js';
 import sounds from '../../../assets/soundEffects/sounds';
 import './Message.scss';
 

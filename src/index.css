@@ -17,6 +17,7 @@
   --x-color: #ffffff;
   --o-color: #ffffff;
 
+  --bg-ttt: #000000;
   --green-a: rgba(59, 82, 53, 0.97);
   --blue-a: rgba(52, 66, 114, 0.97);
 
@@ -41,7 +42,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: black;
+  background-color: var(--bg-ttt);
   color: white;
 }
 

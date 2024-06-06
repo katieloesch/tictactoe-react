@@ -1,8 +1,9 @@
 import React from 'react'
 import sounds from '../../../assets/soundEffects/sounds';
 import './TogglePlayers.scss'
+import { PLAYER_X } from '../helper';
 
-const TogglePlayers = ({ session, setSession, resetGame }) => {
+const TogglePlayers = ({ session, setSession, resetGame, setCurrentSymbol }) => {
 
     const handleToggleChange = (e) => {
 
@@ -10,56 +11,56 @@ const TogglePlayers = ({ session, setSession, resetGame }) => {
         sounds.clickOSound.play();
       }
     
-        if (e.target.checked) {
-            // true: 2 players
-            // false: 1 player
+      if (e.target.checked) {
+        // true: 2 players
+        // false: 1 player
+        
+        setSession({
+          x: {
+            symbol: 'x',
+            name: 'Player 1',
+            wins: 0,
+            color: '#ffffff'
+          },
+          o: {
+            symbol: 'o',
+            name: 'Player 2',
+            wins: 0,
+            color: '#ffffff'
+          },
+          draws: 0,
+          players: 2,
+          gamesPlayed: 0,
+          mute: false
+        })
 
-            setSession({
-                x: {
-                  symbol: 'x',
-                  name: 'Player 1',
-                  wins: 0,
-                  color: '#ffffff'
-                },
-                o: {
-                  symbol: 'o',
-                  name: 'Player 2',
-                  wins: 0,
-                  color: '#ffffff'
-                },
-                draws: 0,
-                players: 2,
-                gamesPlayed: 0,
-                mute: false
-              })
-
-           
-
-        } else {
-
-           setSession({
-                x: {
-                  symbol: 'x',
-                  name: 'Player',
-                  wins: 0,
-                  color: '#ffffff'
-                },
-                o: {
-                  symbol: 'o',
-                  name: 'Computer',
-                  wins: 0,
-                  color: '#ffffff'
-                },
-                draws: 0,
-                players: 1,
-                gamesPlayed: 0,
-                mute: false
-              })
-           
-            
-        }
-
+        setCurrentSymbol(PLAYER_X)
         resetGame();
+
+        } else { // 1 player
+
+          setSession({
+              x: {
+                symbol: 'x',
+                name: 'Player',
+                wins: 0,
+                color: '#ffffff'
+              },
+              o: {
+                symbol: 'o',
+                name: 'Computer',
+                wins: 0,
+                color: '#ffffff'
+              },
+              draws: 0,
+              players: 1,
+              gamesPlayed: 0,
+              mute: false
+            })
+        }
+        
+      setCurrentSymbol(PLAYER_X)
+      resetGame();
     }
 
   return (

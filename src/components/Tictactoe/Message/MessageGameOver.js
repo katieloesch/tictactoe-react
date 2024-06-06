@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { GameState } from '../GameState';
+import { GameState } from '../helper.js';
 import BtnPlayAgain from './BtnPlayAgain';
 import './Message.scss';
 

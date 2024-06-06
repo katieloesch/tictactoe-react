@@ -1,42 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import JSConfetti from 'js-confetti';
-
-import { GameState } from './GameState'
-
-import Grid from './Grid/Grid';
-import TogglePlayers from './TogglePlayers/TogglePlayers';
-import Settings from './Settings/Settings';
-import PlayerEdit from './PlayerEdit/PlayerEdit';
-import MessageGameOver from './Message/MessageGameOver';
-import TurnDisplay from './TurnDispay/TurnDisplay';
-
-
-import sounds from '../../assets/soundEffects/sounds';
+import { GameState, PLAYER_X, PLAYER_O, winningCombinations, minimax } from './helper.js'
+import { Grid, MessageGameOver, PlayerEdit, Settings, TogglePlayers, TurnDisplay, sounds } from './index.js'
 import './Tictactoe.scss';
 
-const PLAYER_X = 'x';
-const PLAYER_O = 'o';
 const jsConfetti = new JSConfetti();
 
 const checkWinDraw = (board, setStrikePosition, setGameState, session, setSession) => {
-
-  const winningCombinations = [
-
-    // horizontal combinations
-    { combo: [0, 1, 2], strikePosition: 'strike-row-1' },
-    { combo: [3, 4, 5], strikePosition: 'strike-row-2' },
-    { combo: [6, 7, 8], strikePosition: 'strike-row-3' },
-
-    // vertical combinations
-    { combo: [0, 3, 6], strikePosition: 'strike-column-1' },
-    { combo: [1, 4, 7], strikePosition: 'strike-column-2' },
-    { combo: [2, 5, 8], strikePosition: 'strike-column-3' },
-
-    // diagonal combinations
-    { combo: [0, 4, 8], strikePosition: 'strike-diagonal-1' },
-    { combo: [2, 4, 6], strikePosition: 'strike-diagonal-2' },
-  
-  ]
 
   for (const { combo, strikePosition } of winningCombinations) {
     
@@ -63,8 +33,6 @@ const checkWinDraw = (board, setStrikePosition, setGameState, session, setSessio
         }
       
         jsConfetti.addConfetti();
-
-       
 
       } else {
         setGameState(GameState.oWins);
@@ -134,48 +102,36 @@ const Tictactoe = () => {
     }
   }
 
+  // const computerMove = (board) => {
+  //   setCurrentSymbol(PLAYER_O);
+  //   setTimeout(() => {
+  //     const emptyCells = [];
+  //     board.forEach((cell, index) => {
+  //       if (cell === null) {
+  //         emptyCells.push(index);
+  //       }
+  //     });
+  //     const randomIndex = Math.floor(Math.random() * emptyCells.length);
+  //     const computerMove = emptyCells[randomIndex];
+  //     const updatedBoard = [...board];
+  //     updatedBoard[computerMove] = session.o.symbol;
+  //     setBoard(updatedBoard);
+  //     setCurrentSymbol(PLAYER_X);
+  //   }, 750);
+  // };
+
   const computerMove = (board) => {
     setCurrentSymbol(PLAYER_O);
+    const bestMove = minimax(board, PLAYER_O);
+    const updatedBoard = [...board];
+    updatedBoard[bestMove.index] = PLAYER_O;
+
     setTimeout(() => {
-      const emptyCells = [];
-  
-      board.forEach((cell, index) => {
-        if (cell === null) {
-          emptyCells.push(index);
-        }
-      });
-  
-      const randomIndex = Math.floor(Math.random() * emptyCells.length);
-      const computerMove = emptyCells[randomIndex];
-  
-      const updatedBoard = [...board];
-      updatedBoard[computerMove] = session.o.symbol;
       setBoard(updatedBoard);
       setCurrentSymbol(PLAYER_X);
-    }, 750);
+    }, 700)
+
   };
-  
-
-  // const computerMove = (board) => {
-    
-  //   setCurrentSymbol(PLAYER_O);
-  //   const emptyCells = [];
-
-  //   board.forEach((cell, index) => {
-  //     if (cell === null) {
-  //       emptyCells.push(index)
-  //     }
-  //   })
-
-  //   const randomIndex = Math.floor(Math.random() * emptyCells.length)
-  //   const computerMove = emptyCells[randomIndex]
-   
-  //   const updatedBoard = [...board];
-  //   updatedBoard[computerMove] = session.o.symbol;
-  //   setBoard(updatedBoard);
-  //   setCurrentSymbol(PLAYER_X);
-
-  // }
 
   const handleTileClick = (index) => {
 
@@ -219,7 +175,6 @@ const Tictactoe = () => {
     }
   }
 
-
   useEffect(() => {
     checkWinDraw(board, setStrikePosition, setGameState, session, setSession);
   }, [board])
@@ -238,29 +193,14 @@ const Tictactoe = () => {
     }
   }, [board, currentSymbol])
 
-  // useEffect(() => {
-  //   if (gameState !== GameState.inProgress) {
-  //     if (!session.mute) {
-  //       soundGameOver.play();
-  //     }
-  //   }
-  // }, [gameState])
 
   return (
     <div className='tictactoe flex'>
       
-      <Grid
-        board={board}
-        currentSymbol={currentSymbol}
-        handleTileClick={handleTileClick}
-        strikePosition={strikePosition}
-        gameState={gameState}
-      />
+      <Grid board={board} currentSymbol={currentSymbol} handleTileClick={handleTileClick} strikePosition={strikePosition} gameState={gameState} />
 
-      <TogglePlayers session={session} setSession={setSession} resetGame={resetGame}/>
+      <TogglePlayers session={session} setSession={setSession} resetGame={resetGame} setCurrentSymbol={setCurrentSymbol} />
       <TurnDisplay session={session} currentSymbol={currentSymbol} gameState={gameState} />
-
-
 
       <Settings session={session} setSession={setSession} resetGame={resetGame} />
 

@@ -103,7 +103,7 @@
     .grid.o .tile:not(.x):not(.o):hover::after {
         width: calc(var(--icon-size)* 0.6);
         height: calc(var(--icon-size)* 0.6);
-        background-color: black;
+        background-color: var(--bg-ttt);
     }
 
     /* when cursor moves over tile that already has an x or o it changes to signal to user that tile is not available */

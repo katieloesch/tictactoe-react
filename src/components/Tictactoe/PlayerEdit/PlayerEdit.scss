@@ -90,7 +90,7 @@
         cursor: pointer;
 
         &:hover {
-            background-color: black;
+            background-color: var(--bg-ttt);
             transition: 0.5s;   
         }
     }
