@@ -111,6 +111,10 @@ npx create-react-app .
   - <sub>[npm page](https://www.npmjs.com/package/gsap)</sub>
   - <sub>[GitHub repository](https://github.com/greensock/GSAP)</sub>
   - <sub>[website](https://gsap.com/)</sub>
+- **sass** (v1.79.4)
+  - <sub>A CSS preprocessor used for styling the application</sub>
+  - <sub>[npm page](https://www.npmjs.com/package/sass)</sub>
+  - <sub>[GitHub repository](https://github.com/sass/dart-sass)</sub>
 
 ### UI and Design
 
